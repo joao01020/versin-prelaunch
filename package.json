@@ -10,7 +10,7 @@
     "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
-    "astro": "^5.0.0",
+    "astro": "^7.2.8",
     "@supabase/supabase-js": "^2.57.0"
   },
   "devDependencies": {
