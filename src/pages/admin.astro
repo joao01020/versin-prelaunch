@@ -1,0 +1,73 @@
+---
+---
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="robots" content="noindex,nofollow"/><title>Administração | VERSIN</title><link rel="icon" href="/versin-logo.png"/><link rel="stylesheet" href="/account.css"/></head><body>
+<header><a class="brand" href="/"><img src="/versin-logo.png" alt=""/><span>VERSIN<small>ADMINISTRAÇÃO</small></span></a><a class="secondary admin-back" href="/dashboard">Voltar ao painel ↗</a></header>
+<main><div id="loading" class="panel">Verificando autorização…</div>
+<div id="admin-private" class="hidden">
+<div class="overline">ÁREA PRIVADA · ADMINISTRADOR</div><h1>Gerenciar o Beta</h1><p>Somente sua conta autorizada pode consultar e alterar inscrições ou liberar novas vagas.</p>
+<div class="stats"><div class="panel"><small>TOTAL DE INSCRITOS</small><strong id="total">—</strong></div><div class="panel"><small>VAGAS LIBERADAS</small><strong id="capacity">—</strong></div><div class="panel"><small>VAGAS DISPONÍVEIS</small><strong id="remaining" class="gold">—</strong></div></div>
+<section class="panel"><div class="overline">CONTROLE DE VAGAS</div><h2>Quantidade de vagas</h2><form id="capacity-form" class="admin-capacity"><label for="new-capacity">Total de vagas que deseja disponibilizar</label><input id="new-capacity" type="number" min="1" max="100000" required/><button class="secondary" type="submit">Atualizar vagas</button></form><p class="notice" id="capacity-notice" role="status"></p></section>
+<section class="panel" id="admin-panel"><div class="overline">INSCRIÇÕES RECEBIDAS</div><h2>Participantes</h2><input class="search" type="search" id="filter" placeholder="Buscar por nome, e-mail ou posição" aria-label="Buscar participantes"/><p id="admin-message" class="notice" role="status" aria-live="polite"></p><div class="table-scroll"><table><thead><tr><th>Posição</th><th>Nome</th><th>E-mail</th><th>Contato</th><th>Perfil</th><th>Status</th><th>Ações</th></tr></thead><tbody id="rows"></tbody></table></div></section>
+</div><p class="notice" id="error" role="status"></p></main>
+<script>
+import {supabase,configured} from '../lib/supabase.js';
+const el=id=>document.getElementById(id);
+const statusNames={pending:'Aguardando',invited:'Convidado',testing:'Em teste',founder:'Founder',rejected:'Não aprovado'};
+let items=[];
+function cell(row,value){const td=document.createElement('td');td.textContent=String(value??'—');row.appendChild(td)}
+async function refresh(){
+ const [{data:list,error},{data:stats}]=await Promise.all([supabase.rpc('versin_admin_beta_requests'),supabase.rpc('versin_beta_queue_stats')]);
+ if(error)throw error;
+ items=Array.isArray(list)?list:[];
+ el('total').textContent=stats?.total??items.length;
+ el('capacity').textContent=stats?.capacity??'—';
+ el('remaining').textContent=stats?.remaining??'—';
+ el('new-capacity').value=stats?.capacity??20;
+ renderRows();
+}
+function renderRows(){
+ const search=el('filter').value.toLocaleLowerCase('pt-BR');el('rows').replaceChildren();
+ for(const a of items.filter(a=>[a.queue_position,a.name,a.email,a.phone,a.role,a.status].some(v=>String(v??'').toLocaleLowerCase('pt-BR').includes(search)))){
+  const tr=document.createElement('tr');
+  [a.queue_position,a.name,a.email,a.prefer_phone?a.phone:'E-mail',a.role].forEach(v=>cell(tr,v));
+  const statusTd=document.createElement('td');const selector=document.createElement('select');selector.className='admin-status';selector.setAttribute('aria-label','Status de '+a.name);
+  for(const [value,label] of Object.entries(statusNames)){const option=document.createElement('option');option.value=value;option.textContent=label;selector.append(option)}
+  selector.value=a.status;statusTd.append(selector);tr.append(statusTd);
+  const actions=document.createElement('td');const save=document.createElement('button');save.className='secondary';save.type='button';save.textContent='Salvar';save.disabled=true;
+  selector.addEventListener('change',()=>save.disabled=selector.value===a.status);
+  save.addEventListener('click',async()=>{
+   if(!confirm('Alterar o status de '+a.name+'?'))return;
+   save.disabled=true;save.textContent='Salvando…';
+   const {error}=await supabase.rpc('versin_admin_set_request_status',{p_request_id:a.id,p_status:selector.value});
+   if(error){el('admin-message').textContent=error.message;}else{el('admin-message').textContent='Status atualizado.';await refresh();}
+   save.textContent='Salvar';
+  });
+  const remove=document.createElement('button');remove.className='secondary admin-delete';remove.type='button';remove.textContent='Excluir';
+  remove.setAttribute('aria-label','Excluir inscrição de '+a.name);
+  remove.addEventListener('click',async()=>{
+   if(!confirm('Excluir DEFINITIVAMENTE a inscrição #'+a.queue_position+' de '+a.name+'? Isso libera uma vaga e não pode ser desfeito.'))return;
+   remove.disabled=true;
+   const {error}=await supabase.rpc('versin_admin_delete_request',{p_request_id:a.id});
+   if(error){el('admin-message').textContent='Erro: '+error.message;remove.disabled=false;}
+   else{el('admin-message').textContent='Inscrição excluída. Posições restantes não são renumeradas.';await refresh();}
+  });
+  actions.append(save,remove);tr.append(actions);el('rows').append(tr);
+ }
+}
+el('filter').addEventListener('input',renderRows);
+el('capacity-form').addEventListener('submit',async e=>{
+ e.preventDefault();const capacity=Number(el('new-capacity').value);if(!Number.isSafeInteger(capacity)||capacity<1)return;
+ if(!confirm('Atualizar o limite de vagas para '+capacity+'?'))return;
+ const {error}=await supabase.rpc('versin_admin_set_capacity',{p_capacity:capacity});
+ if(error)el('capacity-notice').textContent='Erro: '+error.message;
+ else{el('capacity-notice').textContent='Vagas atualizadas!';await refresh();}
+});
+async function load(){
+ if(!configured){el('loading').textContent='Supabase não configurado.';return}
+ const {data:{user}}=await supabase.auth.getUser();if(!user){location.replace('/login');return}
+ const {data:allowed,error}=await supabase.rpc('versin_is_beta_admin');
+ if(error||allowed!==true){el('loading').textContent='Acesso negado. Esta área é exclusiva do administrador.';return}
+ await refresh();el('loading').classList.add('hidden');el('admin-private').classList.remove('hidden');
+}
+load().catch(e=>{el('loading').textContent='Não foi possível carregar a administração.';el('error').textContent=e.message});
+</script></body></html>

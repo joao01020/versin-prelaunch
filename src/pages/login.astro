@@ -1,0 +1,12 @@
+---
+---
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="robots" content="noindex"/><title>Entrar · VERSIN Beta</title><link rel="icon" href="/versin-logo.png"/><link rel="stylesheet" href="/account.css"/></head><body>
+<header><a class="brand" href="/"><img src="/versin-logo.png" alt=""/><span>VERSIN<small>BETA</small></span></a><a href="/">Voltar à apresentação ↗</a></header>
+<main><section class="login-card"><div class="overline">ÁREA DO PARTICIPANTE</div><h1>Seu acesso ao VERSIN.</h1><p>Use o mesmo e-mail informado na inscrição da fila. Enviaremos um link para entrar com segurança, sem senha.</p><form id="login-form"><label for="email">Seu e-mail</label><input type="email" id="email" required autocomplete="email" placeholder="voce@exemplo.com"/><button class="primary" id="submit" type="submit">Receber link de acesso ↗</button></form><p id="message" class="notice" role="status" aria-live="polite"></p><p style="font-size:12px">Ainda não se inscreveu? <a href="/#inscricao">Entrar na fila</a></p></section></main>
+<script>
+import { supabase, configured } from '../lib/supabase.js';
+const form=document.getElementById('login-form');const msg=document.getElementById('message');const button=document.getElementById('submit');
+if(!configured) msg.textContent='Configure o Supabase no arquivo .env para ativar o login.';
+else supabase.auth.getSession().then(({data})=>{if(data.session)location.replace('/dashboard')});
+form.addEventListener('submit',async e=>{e.preventDefault();if(!configured)return;button.disabled=true;msg.textContent='Enviando link…';const email=document.getElementById('email').value.trim();const {error}=await supabase.auth.signInWithOtp({email,options:{emailRedirectTo:new URL('/dashboard',location.origin).href,shouldCreateUser:true}});msg.textContent=error?'Não foi possível enviar: '+error.message:'Se o endereço puder receber acesso, um link será enviado. Verifique a caixa de entrada e o spam.';button.disabled=false;});
+</script></body></html>

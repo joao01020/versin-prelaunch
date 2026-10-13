@@ -1,0 +1,56 @@
+---
+---
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="robots" content="noindex"/><title>Meu painel · VERSIN Beta</title><link rel="icon" href="/versin-logo.png"/><link rel="stylesheet" href="/account.css"/></head><body class="dashboard-page">
+<header><a class="brand" href="/"><img src="/versin-logo.png" alt=""/><span>VERSIN<small>BETA</small></span></a><div class="header-user"><a class="header-avatar-link" href="/dashboard" aria-label="Meu painel"><span class="header-avatar" role="img" aria-label="Avatar do perfil"><svg viewBox="0 0 96 96" width="30" height="30" aria-hidden="true"><circle cx="48" cy="32" r="18" fill="currentColor"/><path d="M13 86c2-22 16-33 35-33s33 11 35 33" fill="currentColor"/></svg></span></a><button type="button" id="logout" class="secondary icon-logout" aria-label="Sair da conta" title="Sair da conta"><svg viewBox="0 0 24 24" width="23" height="23" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"/><path d="M14 16l4-4-4-4M18 12H9"/></svg></button></div></header>
+<main><div id="loading" class="panel">Validando sua conta e carregando a fila…</div><div id="private" class="hidden"><div class="pagehead"><div class="identity-block"><button type="button" id="dashboard-avatar-button" class="profile-avatar dashboard-avatar-picker" aria-label="Trocar foto de perfil" title="Clique para alterar a foto"><svg viewBox="0 0 96 96" width="66" height="66" aria-hidden="true"><circle cx="48" cy="32" r="18" fill="currentColor"/><path d="M13 86c2-22 16-33 35-33s33 11 35 33" fill="currentColor"/></svg><span class="dashboard-avatar-camera" aria-hidden="true">✎</span></button><div class="identity-copy"><div class="overline">DASHBOARD BETA</div><h1 id="welcome">Meu VERSIN</h1><div class="profile-contact"><a id="admin-entry" class="admin-entry hidden" href="/admin" aria-label="Abrir administração" title="Administração VERSIN"><svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7z"/><path d="m12 7 1.6 3.1 3.4.5-2.5 2.4.6 3.4-3.1-1.6-3.1 1.6.6-3.4L7 10.6l3.4-.5z"/></svg></a><a class="settings-entry" href="/settings" aria-label="Configurações da conta" title="Configurações"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a2 2 0 0 1 2 1.6l.2 1.1a7 7 0 0 1 1.5.9l1-.4a2 2 0 0 1 2.5 1l1 1.7a2 2 0 0 1-.5 2.6l-.8.7a7 7 0 0 1 0 1.7l.8.7a2 2 0 0 1 .5 2.6l-1 1.7a2 2 0 0 1-2.5 1l-1-.4a7 7 0 0 1-1.5.9l-.2 1.1a2 2 0 0 1-2 1.6h-2a2 2 0 0 1-2-1.6l-.2-1.1a7 7 0 0 1-1.5-.9l-1 .4a2 2 0 0 1-2.5-1l-1-1.7a2 2 0 0 1 .5-2.6l.8-.7a7 7 0 0 1 0-1.7l-.8-.7a2 2 0 0 1-.5-2.6l1-1.7a2 2 0 0 1 2.5-1l1 .4a7 7 0 0 1 1.5-.9L8 4.6A2 2 0 0 1 10 3z"/><circle cx="12" cy="12" r="2.5"/></svg></a></div></div></div></div><div class="dashboard-avatar-actions hidden" id="dashboard-avatar-actions"><span id="dashboard-avatar-message" role="status" aria-live="polite">Prévia da nova foto. Salve para confirmar.</span><button class="secondary" type="button" id="dashboard-avatar-save">Salvar foto</button><button class="secondary" type="button" id="dashboard-avatar-cancel">Cancelar</button></div><input class="visually-hidden" id="dashboard-avatar-file" type="file" accept="image/jpeg,image/png,image/webp" aria-label="Selecionar foto de perfil"/><div class="dashboard-empty" aria-label="Área do dashboard disponível para futuras funcionalidades"></div>
+</div>
+<p class="notice" id="error" role="status"></p></main>
+<script>
+import {supabase,configured} from '../lib/supabase.js';
+import {loadAvatar,applyAvatar} from '../lib/avatar.js';
+const el=id=>document.getElementById(id);
+let currentUser=null,photoPreview=null;
+const choosePhoto=()=>el('dashboard-avatar-file').click();
+el('dashboard-avatar-button').addEventListener('click',choosePhoto);
+el('dashboard-avatar-file').addEventListener('change',()=>{
+ const file=el('dashboard-avatar-file').files?.[0];
+ if(!file)return;
+ if(!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>2*1024*1024){el('error').textContent='Use JPG, PNG ou WebP de até 2 MB.';el('dashboard-avatar-file').value='';return;}
+ if(photoPreview)URL.revokeObjectURL(photoPreview);
+ photoPreview=URL.createObjectURL(file);
+ applyAvatar(el('dashboard-avatar-button'),photoPreview);
+ el('dashboard-avatar-actions').classList.remove('hidden');el('error').textContent='';
+});
+async function restorePhoto(){if(photoPreview){URL.revokeObjectURL(photoPreview);photoPreview=null;}
+ el('dashboard-avatar-file').value='';el('dashboard-avatar-actions').classList.add('hidden');
+ if(currentUser){const u=await loadAvatar(currentUser.id);document.querySelectorAll('.header-avatar,.profile-avatar').forEach(n=>applyAvatar(n,u));}}
+el('dashboard-avatar-cancel').addEventListener('click',restorePhoto);
+el('dashboard-avatar-save').addEventListener('click',async()=>{
+ const f=el('dashboard-avatar-file').files?.[0];if(!f||!currentUser)return;
+ const button=el('dashboard-avatar-save'),message=el('dashboard-avatar-message');button.disabled=true;message.textContent='Salvando foto…';
+ try{
+ const bmp=await createImageBitmap(f),canvas=document.createElement('canvas');canvas.width=256;canvas.height=256;
+ const ctx=canvas.getContext('2d');if(!ctx)throw new Error('Canvas indisponível');
+ const side=Math.min(bmp.width,bmp.height);ctx.drawImage(bmp,(bmp.width-side)/2,(bmp.height-side)/2,side,side,0,0,256,256);bmp.close();
+ const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/webp',.85));if(!blob)throw new Error('Falha ao processar foto');
+ const {error}=await supabase.storage.from('beta-avatars').upload(`${currentUser.id}/avatar.webp`,blob,{upsert:true,contentType:'image/webp',cacheControl:'0'});if(error)throw error;
+ if(photoPreview){URL.revokeObjectURL(photoPreview);photoPreview=null;}el('dashboard-avatar-file').value='';
+ const url=await loadAvatar(currentUser.id);document.querySelectorAll('.header-avatar,.profile-avatar').forEach(n=>applyAvatar(n,url));
+ el('dashboard-avatar-actions').classList.add('hidden');el('error').textContent='Foto atualizada.';
+ }catch(e){message.textContent='Não foi possível salvar: '+e.message;}finally{button.disabled=false;}
+});
+const statusNames={pending:'Aguardando',invited:'Convidado',testing:'Em teste',founder:'Founder',rejected:'Não aprovado'};
+el('logout').addEventListener('click',async()=>{if(supabase)await supabase.auth.signOut();location.replace('/login')});
+async function load(){if(!configured){el('loading').textContent='Configure PUBLIC_SUPABASE_URL e PUBLIC_SUPABASE_PUBLISHABLE_KEY.';return}const {data:{session},error:authError}=await supabase.auth.getSession();if(authError||!session){location.replace('/login');return}const {data:{user},error:userError}=await supabase.auth.getUser();if(userError||!user){location.replace('/login');return}
+currentUser=user;const avatarUrl=await loadAvatar(user.id);document.querySelectorAll('.header-avatar,.profile-avatar').forEach(node=>applyAvatar(node,avatarUrl));
+const {data:mine,error:mineError}=await supabase.rpc('versin_my_beta_request');
+el('loading').classList.add('hidden');
+el('private').classList.remove('hidden');
+if(mine?.found && !mineError){el('welcome').textContent='Olá, '+mine.name+'!';}
+else if(mineError){el('welcome').textContent='Bem-vindo ao VERSIN';}
+const {data:isAdmin,error:adminError}=await supabase.rpc('versin_is_beta_admin');
+if(!adminError && isAdmin===true)el('admin-entry').classList.remove('hidden');
+
+}
+load().catch(e=>{el('loading').textContent='Não foi possível carregar a conta.';el('error').textContent=e.message});
+</script></body></html>
