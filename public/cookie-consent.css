@@ -1,0 +1,12 @@
+#versin-cookie-banner{position:fixed;z-index:99999;left:20px;bottom:20px;width:min(430px,calc(100vw - 40px));padding:25px 25px 23px;border:1px solid #71508f;border-radius:19px;background:#191321;box-shadow:0 24px 85px #000b,0 0 0 1px #a979ed0a;color:#f6f0ff;font-family:'DM Sans',sans-serif;text-align:left;box-sizing:border-box}
+#versin-cookie-banner[hidden]{display:none!important}
+#versin-cookie-banner h2{font:700 22px/1.2 'Space Grotesk',sans-serif;margin:0 0 11px;letter-spacing:-.035em;color:#faf6ff}
+#versin-cookie-banner p{font:400 13px/1.65 'DM Sans',sans-serif;margin:0 0 21px;color:#bdb0ca}
+#versin-cookie-banner a{color:#d0a5ff;text-decoration:underline;text-underline-offset:3px}
+#versin-cookie-banner .versin-cookie-buttons{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+#versin-cookie-banner button{font:700 13px 'DM Sans',sans-serif;min-height:44px;border-radius:999px;cursor:pointer;transition:filter .2s,transform .2s}
+#versin-cookie-banner button:hover{filter:brightness(1.14);transform:translateY(-1px)}
+#versin-cookie-banner button:focus-visible{outline:2px solid #d0a5ff;outline-offset:3px}
+#versin-cookie-accept{background:linear-gradient(110deg,#8f55d8,#ad77ed);border:1px solid #a875ef;color:#fff}
+#versin-cookie-reject{background:#292036;border:1px solid #806398;color:#e7ddf1}
+@media(max-width:480px){#versin-cookie-banner{left:12px;bottom:12px;width:calc(100vw - 24px);padding:22px 20px}#versin-cookie-banner h2{font-size:20px}}

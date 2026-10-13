@@ -1,6 +1,7 @@
 ---
 ---
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="robots" content="noindex,nofollow"/><title>Administração | VERSIN</title><link rel="icon" href="/versin-logo.png"/><link rel="stylesheet" href="/account.css"/></head><body>
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="robots" content="noindex,nofollow"/><title>Administração | VERSIN</title><link rel="icon" href="/versin-logo.png"/><link rel="stylesheet" href="/account.css"/>  <link rel="stylesheet" href="/cookie-consent.css" />
+</head><body>
 <header><a class="brand" href="/"><img src="/versin-logo.png" alt=""/><span>VERSIN<small>ADMINISTRAÇÃO</small></span></a><a class="secondary admin-back" href="/dashboard">Voltar ao painel ↗</a></header>
 <main><div id="loading" class="panel">Verificando autorização…</div>
 <div id="admin-private" class="hidden">
@@ -70,4 +71,13 @@ async function load(){
  await refresh();el('loading').classList.add('hidden');el('admin-private').classList.remove('hidden');
 }
 load().catch(e=>{el('loading').textContent='Não foi possível carregar a administração.';el('error').textContent=e.message});
-</script></body></html>
+</script><aside id="versin-cookie-banner" hidden role="dialog" aria-label="Preferências de cookies" aria-modal="false">
+  <h2>Cookies no VERSIN</h2>
+  <p>Usamos armazenamento necessário para o funcionamento do site e do login. Não usamos cookies para anúncios. Você pode escolher se permite cookies opcionais no futuro. Saiba mais em nossa <a href="/privacidade">Política de Privacidade</a>.</p>
+  <div class="versin-cookie-buttons">
+    <button type="button" id="versin-cookie-accept">Aceitar</button>
+    <button type="button" id="versin-cookie-reject">Recusar</button>
+  </div>
+</aside>
+<script src="/cookie-consent.js" defer></script>
+</body></html>
