@@ -7,7 +7,7 @@
 <script>
 import { supabase, configured } from '../lib/supabase.js';
 const form=document.getElementById('login-form');const msg=document.getElementById('message');const button=document.getElementById('submit');
-if(!configured) msg.textContent='';
+if(!configured) msg.textContent='Configure o Supabase no arquivo .env para ativar o login.';
 else supabase.auth.getSession().then(({data})=>{if(data.session)location.replace('/dashboard')});
 form.addEventListener('submit',async e=>{e.preventDefault();if(!configured)return;button.disabled=true;msg.textContent='Enviando link…';const email=document.getElementById('email').value.trim();const {error}=await supabase.auth.signInWithOtp({email,options:{emailRedirectTo:new URL('/dashboard',location.origin).href,shouldCreateUser:true}});msg.textContent=error?'Não foi possível enviar: '+error.message:'Se o endereço puder receber acesso, um link será enviado. Verifique a caixa de entrada e o spam.';button.disabled=false;});
 </script><aside id="versin-cookie-banner" hidden role="dialog" aria-label="Preferências de cookies" aria-modal="false">
