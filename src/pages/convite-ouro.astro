@@ -30,14 +30,33 @@ const title = 'Convite de Ouro · VERSIN';
     .ticket-inner{position:relative;z-index:1;min-height:314px;padding:36px 22px;display:flex;align-items:center;justify-content:center;flex-direction:column;border:2px dashed #7547117a;border-radius:7px}.ticket-icon{font-size:38px;line-height:1;margin-bottom:12px;text-shadow:0 1px #fff5c9}.ticket-kicker{font-size:11px;letter-spacing:.25em;font-weight:800;margin-bottom:14px}.ticket-title{font:700 clamp(32px,5vw,53px)/1.1 'Space Grotesk',sans-serif;letter-spacing:-.055em;text-shadow:0 1px #ffefbd}.ticket-caption{font-size:13px;letter-spacing:.06em;margin:20px 0 0;max-width:460px;line-height:1.6}.ticket-id{position:absolute;right:25px;bottom:18px;font-size:10px;letter-spacing:.15em;font-weight:700}
     /* Arquivo escondido sob o bilhete: revelação por arrastar, tocar ou teclado. */
     .reveal-stage{position:relative;max-width:790px;margin:0 auto 32px;isolation:isolate;min-height:390px;display:grid;place-items:center}
-    .secret-layer{position:absolute;inset:12px 0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 25px 25px;border-radius:22px;border:1px solid #82613b;background:radial-gradient(ellipse at 50% 25%,#292037,#120f1b 70%);box-shadow:inset 0 0 55px #0008}
-    .secret-layer svg{width:36px;height:36px;color:#eac47b;margin-bottom:17px}
-    .secret-kicker{color:#eac47b;letter-spacing:.23em;font-size:10px;font-weight:700;margin-bottom:12px}
-    .secret-layer h2{font:700 clamp(25px,3.6vw,35px)/1.2 'Space Grotesk',sans-serif;letter-spacing:-.05em;margin:0 0 14px}
-    .secret-layer p{color:#c8bfd1;font-size:14px;line-height:1.7;max-width:460px;margin:0 0 17px}
+    .secret-layer{position:absolute;z-index:1;pointer-events:none;inset:12px 0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:25px 25px 20px;border-radius:22px;border:1px solid #82613b;background:radial-gradient(ellipse at 50% 25%,#292037,#120f1b 70%);box-shadow:inset 0 0 55px #0008}
+    .secret-layer svg{width:30px;height:30px;color:#eac47b;margin-bottom:10px}
+    .secret-kicker{color:#eac47b;letter-spacing:.23em;font-size:10px;font-weight:700;margin-bottom:9px}
+    .secret-layer h2{font:700 clamp(25px,3.6vw,35px)/1.2 'Space Grotesk',sans-serif;letter-spacing:-.05em;margin:0 0 9px}
+    .secret-layer p{color:#c8bfd1;font-size:14px;line-height:1.7;max-width:460px;margin:0 0 7px}
     .secret-layer small{color:#eac47b;letter-spacing:.13em;font-size:10px}
-    .reveal-stage .ticket-scene{width:100%;max-width:none;z-index:2;margin:0;touch-action:pan-x;cursor:grab;user-select:none;transform:translate3d(0,var(--ticket-drag,0px),0);transition:transform .58s cubic-bezier(.2,.8,.2,1),opacity .45s ease;will-change:transform,opacity}
+    .silent-audio{width:min(100%,440px);margin:12px auto 12px;padding:10px 15px;background:#1c1626;border:1px solid #78603c88;border-radius:14px}
+    .silent-audio audio{display:none}
+    .audio-player{display:flex;align-items:center;gap:14px;min-height:44px}
+    .audio-play{display:flex;align-items:center;justify-content:center;flex:0 0 42px;width:42px;height:42px;padding:0;border-radius:50%;border:1px solid #b99155;background:#2b2036;color:#f2d291;cursor:pointer;line-height:0}.audio-play svg{display:block;width:17px;height:17px;flex:none}
+    .audio-play:hover{background:#3b2c45}.audio-play:focus-visible{outline:2px solid #f2d291;outline-offset:3px}
+    .audio-track{position:relative;flex:1;height:5px;border-radius:99px;background:#45374e;overflow:hidden}
+    .audio-fill{height:100%;width:0%;background:linear-gradient(90deg,#a778e5,#eac47b);border-radius:inherit;transition:width .08s linear}
+    .audio-status{font-size:11px;color:#b9a9c8;min-width:83px;white-space:nowrap;text-align:center;font-variant-numeric:tabular-nums}
+    .audio-restart{padding:6px;border:0;background:transparent;color:#c1a3db;cursor:pointer;font-size:21px;line-height:1}
+    .audio-restart:focus-visible{outline:2px solid #f2d291;border-radius:5px}
+    .secret-layer .audio-clue{color:#eac47b;font-size:13px;font-weight:600;margin:0 0 14px}
+    .secret-answer{display:flex;align-items:center;gap:9px;margin-top:5px;position:relative;z-index:1}
+    .secret-answer input{width:140px;height:43px;border:1px solid #87673b;border-radius:10px;background:#100c16;color:#f8f4ff;text-align:center;font:600 18px 'DM Sans',sans-serif;letter-spacing:.1em;outline:none}
+    .secret-answer input:focus{border-color:#eac47b;box-shadow:0 0 0 3px #eac47b20}
+    .secret-answer input::placeholder{color:#81718f}
+    .secret-answer button{height:43px;width:43px;border:1px solid #87673b;border-radius:10px;background:#21182b;color:#eac47b;font-size:22px;cursor:pointer}
+    .secret-answer button:disabled{opacity:.45;cursor:wait}
+    .secret-answer button:focus-visible{outline:2px solid #eac47b;outline-offset:3px}
+    .reveal-stage .ticket-scene{position:relative;width:100%;max-width:none;z-index:2;margin:0;touch-action:pan-x;cursor:grab;user-select:none;transform:translate3d(0,var(--ticket-drag,0px),0);transition:transform .58s cubic-bezier(.2,.8,.2,1),opacity .45s ease;will-change:transform,opacity}
     .reveal-stage .ticket-scene.dragging{transition:none;cursor:grabbing}
+    .reveal-stage.open .secret-layer{pointer-events:auto}
     .reveal-stage.open .ticket-scene{transform:translate3d(0,-110%,0) rotate(-3deg);opacity:0;pointer-events:none}
     .reveal-controls{margin:-7px auto 58px;display:flex;gap:15px;align-items:center;justify-content:center;min-height:47px}
     .reveal-button{border:1px solid #84633d;background:#241b27;color:#efd199;border-radius:100px;padding:12px 20px;font:700 12px 'DM Sans',sans-serif;cursor:pointer;transition:background .2s}
@@ -48,7 +67,7 @@ const title = 'Convite de Ouro · VERSIN';
     .details{max-width:680px;margin:0 auto;padding:25px 28px;border:1px solid #6d513278;border-radius:17px;background:#171220;text-align:left}.details h2{font:700 25px 'Space Grotesk',sans-serif;color:#eac47b;letter-spacing:-.03em;margin:0 0 12px}.details p{font-size:14px;line-height:1.85;color:#bcb1c6;margin:0 0 12px}.details p:last-child{margin-bottom:0}.details strong{color:#f1d394}
     .cta{display:inline-block;background:#e7bf71;color:#251505;border-radius:11px;padding:15px 22px;font-weight:800;font-size:13px;margin-top:28px}
     .footer{border-top:1px solid #ffffff15;padding:22px 0;color:#8d819c;font-size:11px;text-align:center}
-    @media(max-width:650px){.reveal-stage{min-height:290px}.secret-layer{padding:25px 22px}.secret-layer p{font-size:12px}.secret-layer h2{font-size:24px}.reveal-controls{margin:0 auto 40px;flex-direction:column;gap:10px}
+    @media(max-width:650px){.reveal-stage{min-height:330px}.silent-audio{padding:6px}.secret-layer .audio-clue{font-size:12px}.secret-layer{padding:25px 22px}.secret-layer p{font-size:12px}.secret-layer h2{font-size:24px}.reveal-controls{margin:0 auto 40px;flex-direction:column;gap:10px}
     main{padding:52px 0 65px}.lead{margin-bottom:40px}.ticket{min-height:260px;padding:12px;transform:rotate(-2deg)}.ticket-inner{min-height:238px;padding:23px 15px}.ticket:after{inset:9px}.ticket-icon{font-size:30px}.ticket-title{font-size:clamp(27px,7vw,40px)}.ticket-caption{font-size:11px}.ticket-id{right:15px;bottom:10px;font-size:8px}.details{padding:23px 20px}}
     @media(prefers-reduced-motion:reduce){.reveal-stage .ticket-scene{transition:none!important}
     *,*:before,*:after{scroll-behavior:auto!important;animation:none!important}}
@@ -64,12 +83,24 @@ const title = 'Convite de Ouro · VERSIN';
     <h1>Você encontrou um <em>convite de ouro.</em></h1>
     
     <div class="reveal-stage" id="reveal-stage">
-      <div class="secret-layer" id="hidden-message" aria-label="Mensagem escondida sob o convite">
+      <div class="secret-layer" id="hidden-message" aria-label="Mensagem escondida sob o convite" inert>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M2 12s3.7-6 10-6 10 6 10 6-3.7 6-10 6-10-6-10-6Z"/><circle cx="12" cy="12" r="3"/></svg>
         <span class="secret-kicker">VERSIN / ARQUIVO 001</span>
         <h2>Você encontrou a primeira camada.</h2>
-        <p>Nem todo segredo está escondido. Alguns apenas esperam por alguém que perceba.</p>
-        <small>O CAMINHO AINDA NÃO FOI ABERTO.</small>
+        <div class="silent-audio">
+          <div class="audio-player" role="group" aria-label="Reprodutor da gravação recuperada">
+            <button type="button" class="audio-play" id="audio-play" aria-label="Reproduzir gravação"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5a1 1 0 0 1 1.53-.85l11 6.5a1 1 0 0 1 0 1.7l-11 6.5A1 1 0 0 1 8 18.5z"/></svg></button>
+            <div class="audio-track" role="progressbar" aria-label="Progresso da reprodução" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="audio-track"><div class="audio-fill" id="audio-fill"></div></div>
+            <span class="audio-status" id="audio-status" role="timer" aria-label="Tempo de reprodução">00:00 / 00:00</span>
+            <button type="button" class="audio-restart" id="audio-restart" aria-label="Reiniciar gravação" title="Reiniciar gravação">↺</button>
+          </div>
+          <audio id="mystery-audio" preload="metadata" aria-label="Gravação recuperada"><source src="/arquivo-002-silencio.mp3" type="audio/mpeg" /></audio>
+        </div>
+        <p class="audio-clue">Até a ausência de som traz respostas.</p>
+        <form class="secret-answer" id="secret-answer" autocomplete="off" aria-label="Entrada do arquivo">
+          <input id="secret-value" type="text" inputmode="numeric" maxlength="8" autocomplete="off" spellcheck="false" aria-label="Código do arquivo" placeholder="···" />
+          <button type="submit" aria-label="Continuar" title="Continuar">→</button>
+        </form>
       </div>
     <div class="ticket-scene" id="drag-ticket" aria-label="Bilhete dourado: arraste para cima para revelar a mensagem">
       <div class="ticket">
@@ -93,6 +124,70 @@ const title = 'Convite de Ouro · VERSIN';
     const stage = document.getElementById('reveal-stage');
     const ticket = document.getElementById('drag-ticket');
     const toggle = document.getElementById('reveal-toggle');
+    const secretForm = document.getElementById('secret-answer');
+    const secretInput = document.getElementById('secret-value');
+    const mysteryAudio = document.getElementById('mystery-audio');
+    const audioPlay = document.getElementById('audio-play');
+    const audioRestart = document.getElementById('audio-restart');
+    const audioFill = document.getElementById('audio-fill');
+    const audioTrack = document.getElementById('audio-track');
+    const audioStatus = document.getElementById('audio-status');
+    const refreshAudio = () => {
+      const ratio = Number.isFinite(mysteryAudio.duration) && mysteryAudio.duration > 0
+        ? Math.min(1, mysteryAudio.currentTime / mysteryAudio.duration) : 0;
+      const percent = Math.round(ratio * 100);
+      audioFill.style.width = percent + '%';
+      audioTrack.setAttribute('aria-valuenow', String(percent));
+      audioPlay.innerHTML = mysteryAudio.paused
+        ? '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5a1 1 0 0 1 1.53-.85l11 6.5a1 1 0 0 1 0 1.7l-11 6.5A1 1 0 0 1 8 18.5z"/></svg>'
+        : '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="7" y="5" width="3.5" height="14" rx="1"/><rect x="13.5" y="5" width="3.5" height="14" rx="1"/></svg>';
+      audioPlay.setAttribute('aria-label', mysteryAudio.paused ? 'Reproduzir gravação' : 'Pausar gravação');
+      const stamp = seconds => {
+        const value = Math.max(0, Math.floor(Number.isFinite(seconds) ? seconds : 0));
+        return String(Math.floor(value / 60)).padStart(2, '0') + ':' + String(value % 60).padStart(2, '0');
+      };
+      audioStatus.textContent = stamp(mysteryAudio.currentTime) + ' / ' + stamp(mysteryAudio.duration);
+    };
+    audioPlay.addEventListener('click', async () => {
+      if (!mysteryAudio.paused) { mysteryAudio.pause(); return; }
+      if (mysteryAudio.ended) mysteryAudio.currentTime = 0;
+      try { await mysteryAudio.play(); } catch { refreshAudio(); }
+    });
+    audioRestart.addEventListener('click', () => {
+      mysteryAudio.currentTime = 0;
+      refreshAudio();
+    });
+    for (const type of ['timeupdate','play','pause','ended','loadedmetadata']) {
+      mysteryAudio.addEventListener(type, refreshAudio);
+    }
+    refreshAudio();
+    secretForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!secretInput.value.trim()) return;
+      const submit = secretForm.querySelector('button');
+      submit.disabled = true;
+      try {
+        const response = await fetch('/api/arquivo/abrir', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          credentials: 'same-origin',
+          body: JSON.stringify({ value: secretInput.value.trim() })
+        });
+        if (response.ok) {
+          const data = await response.json();
+          if (data.next) {
+            window.location.assign(data.next);
+            return;
+          }
+        }
+        secretInput.value = '';
+        secretInput.focus();
+      } catch {
+        secretInput.focus();
+      } finally {
+        submit.disabled = false;
+      }
+    });
     let startY = 0;
     let moving = false;
     let activePointer = null;
@@ -103,6 +198,7 @@ const title = 'Convite de Ouro · VERSIN';
       ticket.style.removeProperty('--ticket-drag');
       toggle.textContent = open ? 'Esconder o arquivo ↓' : 'Revelar o arquivo ↑';
       toggle.setAttribute('aria-expanded', String(open));
+      document.getElementById('hidden-message').inert = !open;
     }
     toggle.addEventListener('click', () => setOpened(!stage.classList.contains('open')));
     ticket.addEventListener('pointerdown', (event) => {

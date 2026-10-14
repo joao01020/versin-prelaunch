@@ -1,5 +1,25 @@
 {
   "name": "versin-prelaunch",
   "compatibility_date": "2026-10-13",
-  "assets": { "directory": "./dist", "not_found_handling": "404-page" }
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page",
+    "binding": "ASSETS",
+    "run_worker_first": [
+      "/api/arquivo/*",
+      "/sinal/*",
+      "/eco/*"
+    ]
+  },
+  "main": "./worker/index.js",
+  "ratelimits": [
+    {
+      "name": "ENIGMATIC_LIMIT",
+      "namespace_id": "20817",
+      "simple": {
+        "limit": 5,
+        "period": 60
+      }
+    }
+  ]
 }
