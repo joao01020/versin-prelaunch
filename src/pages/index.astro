@@ -143,8 +143,7 @@ const enabled = Boolean(sbUrl && sbKey);
       <div class="invitation-intro">
         <div class="overline gold">VERSIN / ARQUIVO 001</div>
         <h2>Algumas histórias começam <em>com um segredo.</em></h2>
-        <p>Além do programa Founders, existe algo mais esperando para ser descoberto. Nenhum desafio é necessário para se inscrever no Beta.</p>
-        <div class="mystery-badge"><span aria-hidden="true">✧</span><div><strong>ENIGMATIC FOUNDER</strong><small>Uma conquista secreta. Seu significado será revelado no momento certo.</small></div></div>
+        <div class="enigma-description"><p><strong>Uma conquista escondida aguarda quem observar além do óbvio.</strong></p><p>Ao longo da experiência, algumas pistas poderão levar a um segredo dentro do universo VERSIN.</p><p>Quem desvendar esse caminho primeiro receberá um reconhecimento especial.</p><p><strong>No fim, haverá um único vencedor.</strong></p></div>
       </div>
       <div class="invitation-frame">
         <div class="invitation-label"><span>VERSIN / FOUNDERS PROGRAM</span><span aria-hidden="true">✦</span></div>
@@ -154,15 +153,8 @@ const enabled = Boolean(sbUrl && sbKey);
           <h3 id="invitation-title">Nem todos estarão aqui desde o começo.</h3>
           <p>Algumas pessoas vão conhecer o VERSIN quando ele estiver pronto. Outras terão a oportunidade de ajudar a construí-lo.</p>
           
-          <button class="invitation-open" id="invitation-open" type="button" aria-expanded="false" aria-controls="invitation-reveal">Abrir o convite <span aria-hidden="true">↗</span></button>
-          <div id="invitation-reveal" class="invitation-reveal" hidden>
-            <div class="reveal-divider"></div>
-            <span class="invitation-eyebrow">UM MISTÉRIO AINDA SEM RESPOSTA</span>
-            <strong>ENIGMATIC FOUNDER</strong>
-            <p>Há uma conquista escondida no universo VERSIN. Quem desvendar o futuro mistério poderá receber um emblema adicional de destaque no perfil, além dos benefícios Founders, quando elegível.</p>
-            <small>A charada e os critérios da recompensa ainda serão anunciados. Abrir este convite não concede a conquista nem reserva uma vaga.</small>
-          </div>
-        </div>
+          <a class="invitation-open" href="/convite-ouro" aria-label="Abrir a página do Convite de Ouro">Abrir o convite <span aria-hidden="true">↗</span></a>
+</div>
         
       </div>
     </div>
@@ -200,20 +192,10 @@ const enabled = Boolean(sbUrl && sbKey);
       </article>
     </div>
   </section>
-  <section id="inscricao" class="signup-shell shell section"><div class="signup-box"><div class="signup-decor">✶</div><div class="signup-heading"><div class="overline">SEU ACESSO COMEÇA NA FILA</div><h2>Seu lugar no começo<br /><em>do VERSIN.</em></h2><p>O acesso será liberado por ordem de inscrição. Os <strong>20 primeiros inscritos</strong> terão prioridade na fila para receber o convite de login e começar a testar o VERSIN.</p><div class="mystery-queue"><span>✧ ENIGMATIC FOUNDER</span><p>Um mistério, <strong>um único vencedor</strong>. O número total de pessoas que poderão participar do desafio ainda não foi divulgado. Os primeiros testadores terão uma vantagem: mais tempo para explorar o VERSIN assim que receberem acesso.</p></div></div><div class="signup-form-wrap"><div class="form-caption">ENTRAR NA FILA DE ACESSO</div><form id="beta-form"><label for="name">Como podemos chamar você?</label><input type="text" name="name" id="name" placeholder="Seu nome" minlength="2" maxlength="70" required autocomplete="name" /><label for="email">Seu melhor e-mail</label><input type="email" name="email" id="email" placeholder="voce@exemplo.com" required maxlength="254" autocomplete="email" /><label for="role">Você se identifica mais como...</label><select id="role" name="role" required><option value="" disabled selected>Selecione uma opção</option><option value="compositor">Compositor(a) / letrista</option><option value="artista">Artista / cantor(a)</option><option value="produtor">Produtor(a) musical</option><option value="entusiasta">Curioso(a) por música</option><option value="outro">Outro</option></select><label class="phone-choice"><input type="checkbox" id="prefer-phone" name="prefer_phone" /><span>Sou mais ativo no celular, envie por ele</span></label><div id="phone-field" hidden><label for="phone">Número de celular (com DDD)</label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(11) 99999-9999" maxlength="20" /></div><label class="consent"><input type="checkbox" id="consent" required /><span>Concordo com o uso dos meus dados para receber informações sobre meu acesso ao Beta. <a class="privacy-consent-link" href="/privacidade" target="_blank" rel="noopener noreferrer">Saiba como usamos seus dados ↗</a></span></label><button type="submit" class="button primary submit" id="submit" disabled>Entrar na fila <span>↗</span></button><p class="form-msg" id="form-msg" role="status" aria-live="polite">Inscrições online serão liberadas após a configuração da lista de espera.</p></form><div class="queue-receipt" id="queue-receipt" hidden aria-live="polite"><div class="receipt-ornament">✦ VERSIN / SOLICITAÇÃO REGISTRADA</div><h3>Você entrou na fila!</h3><p>Guarde este comprovante. Seu login será liberado após a análise e o convite.</p><div class="receipt-position">Sua posição na fila <strong id="receipt-position">—</strong></div><div class="receipt-id-label">ID da sua inscrição</div><div class="receipt-code"><code id="receipt-id"></code><button id="copy-receipt" type="button" aria-label="Copiar ID de inscrição" title="Copiar ID de inscrição">▣ Copiar</button></div><p id="receipt-note" class="receipt-note"></p><small>Este ID identifica sua solicitação, não é senha nem comprovante de acesso ou de PRO.</small></div></div></div></section>
+  <section id="inscricao" class="signup-shell shell section"><div class="signup-box"><div class="signup-decor">✶</div><div class="signup-heading"><div class="overline">SEU ACESSO COMEÇA NA FILA</div><h2>Seu lugar no começo<br /><em>do VERSIN.</em></h2><p>O acesso será liberado por ordem de inscrição. Os <strong>20 primeiros inscritos</strong> terão prioridade na fila para receber o convite de login e começar a testar o VERSIN.</p></div><div class="signup-form-wrap"><div class="form-caption">ENTRAR NA FILA DE ACESSO</div><form id="beta-form"><label for="name">Como podemos chamar você?</label><input type="text" name="name" id="name" placeholder="Seu nome" minlength="2" maxlength="70" required autocomplete="name" /><label for="email">Seu melhor e-mail</label><input type="email" name="email" id="email" placeholder="voce@exemplo.com" required maxlength="254" autocomplete="email" /><label for="role">Você se identifica mais como...</label><select id="role" name="role" required><option value="" disabled selected>Selecione uma opção</option><option value="compositor">Compositor(a) / letrista</option><option value="artista">Artista / cantor(a)</option><option value="produtor">Produtor(a) musical</option><option value="entusiasta">Curioso(a) por música</option><option value="outro">Outro</option></select><label class="phone-choice"><input type="checkbox" id="prefer-phone" name="prefer_phone" /><span>Sou mais ativo no celular, envie por ele</span></label><div id="phone-field" hidden><label for="phone">Número de celular (com DDD)</label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(11) 99999-9999" maxlength="20" /></div><label class="consent"><input type="checkbox" id="consent" required /><span>Concordo com o uso dos meus dados para receber informações sobre meu acesso ao Beta. <a class="privacy-consent-link" href="/privacidade" target="_blank" rel="noopener noreferrer">Saiba como usamos seus dados ↗</a></span></label><button type="submit" class="button primary submit" id="submit" disabled>Entrar na fila <span>↗</span></button><p class="form-msg" id="form-msg" role="status" aria-live="polite">Inscrições online serão liberadas após a configuração da lista de espera.</p></form><div class="queue-receipt" id="queue-receipt" hidden aria-live="polite"><div class="receipt-ornament">✦ VERSIN / SOLICITAÇÃO REGISTRADA</div><h3>Você entrou na fila!</h3><p>Guarde este comprovante. Seu login será liberado após a análise e o convite.</p><div class="receipt-position">Sua posição na fila <strong id="receipt-position">—</strong></div><div class="receipt-id-label">ID da sua inscrição</div><div class="receipt-code"><code id="receipt-id"></code><button id="copy-receipt" type="button" aria-label="Copiar ID de inscrição" title="Copiar ID de inscrição">▣ Copiar</button></div><p id="receipt-note" class="receipt-note"></p><small>Este ID identifica sua solicitação, não é senha nem comprovante de acesso ou de PRO.</small></div></div></div></section>
   <section class="faq shell section"><div class="section-heading"><div class="overline">AINDA TEM DÚVIDAS?</div><h2>Perguntas rápidas.</h2></div><div class="faq-items"><details><summary>O que é o registro por hash? <span>+</span></summary><p>O registro por hash ajuda a verificar arquivos e compor evidências sobre uma criação. Ele não substitui o registro formal de direitos autorais.</p></details><details><summary>Preciso pagar para participar do Beta? <span>+</span></summary><p>Não. O programa de testes é gratuito para as pessoas convidadas e aprovadas.</p></details><details><summary>Entrar na fila garante acesso imediato? <span>+</span></summary><p>Não. As primeiras 20 inscrições têm prioridade na primeira turma, mas a liberação do login será feita em etapas e após validação. Outras inscrições ficam na fila para novas vagas.</p></details><details><summary>Quem pode conquistar o Enigmatic Founder? <span>+</span></summary><p>Será uma conquista secreta com um único vencedor. A quantidade total de participantes elegíveis ainda não foi divulgada. Os primeiros testadores poderão explorar antes, quando receberem acesso.</p></details><details><summary>Todos que entram na lista recebem PRO vitalício? <span>+</span></summary><p>Não. A lista é apenas um pedido de acesso. A recompensa é destinada aos participantes aprovados que efetivamente contribuírem durante os testes, dentro do limite de 50 Founders.</p></details><details><summary>O que significa PRO vitalício? <span>+</span></summary><p>É acesso ao plano PRO sem mensalidade enquanto o serviço existir, conforme as condições publicadas do programa. Recursos de IA poderão ter limites de uso justo para manter a sustentabilidade do projeto.</p></details><details><summary>O que preciso fazer como testador? <span>+</span></summary><p>Utilizar as ferramentas, compartilhar sua experiência e informar problemas ou sugestões. O objetivo é melhorar o VERSIN com feedback real.</p></details></div></section>
 </main>
-<script>
-  const invitationButton = document.getElementById('invitation-open');
-  const invitationReveal = document.getElementById('invitation-reveal');
-  invitationButton?.addEventListener('click', () => {
-    if (!invitationReveal || !invitationButton) return;
-    const willOpen = invitationReveal.hidden;
-    invitationReveal.hidden = !willOpen;
-    invitationButton.setAttribute('aria-expanded', String(willOpen));
-    invitationButton.textContent = willOpen ? 'Fechar convite −' : 'Abrir o convite ↗';
-  });
-</script>
+
 <script>
   // Progresso e revelação sincronizados com o scroll, nos dois sentidos.
   const track = document.querySelector('#etapas .timeline-track');
@@ -233,7 +215,9 @@ const enabled = Boolean(sbUrl && sbKey);
       items.forEach((item) => {
         const rect = item.getBoundingClientRect();
         const distance = Math.abs(rect.top + rect.height / 2 - middle);
-        item.classList.toggle('is-visible', distance < Math.min(window.innerHeight * .33, rect.height * .43));
+        const focus = distance < Math.min(window.innerHeight * .36, rect.height * .48);
+        item.classList.toggle('is-visible', focus);
+        item.classList.toggle('is-passed', rect.top + rect.height / 2 <= middle);
       });
     };
     const schedule = () => {
@@ -406,22 +390,39 @@ const enabled = Boolean(sbUrl && sbKey);
 .queue-receipt{padding:10px 0;color:#f9f4ff}.receipt-ornament{font-size:11px;color:#d9b981;letter-spacing:.13em}.queue-receipt h3{margin:20px 0 8px;font-size:28px}.queue-receipt p{font-size:13px}.receipt-position{background:#2b213a;border:1px solid #8761b0;border-radius:12px;padding:18px;margin:24px 0;font-size:13px;color:#cbbad9}.receipt-position strong{display:block;font-size:40px;color:#e7c391;margin-top:5px}.receipt-id-label{font-size:11px;letter-spacing:.12em;color:#bfa9d4;margin-bottom:8px}.receipt-code{display:flex;align-items:center;gap:7px;border:1px solid #6e537b;background:#261b32;padding:9px;border-radius:10px}.receipt-code code{font-size:11px;overflow-wrap:anywhere;flex:1;color:#f2e6ff}.receipt-code button{flex:none;border:1px solid #9871bf;border-radius:8px;background:#3b2754;color:#fff;padding:9px 11px;font-size:12px}.receipt-note{color:#e2c18a!important}.queue-receipt>small{display:block;color:#9e8caf;line-height:1.6;margin-top:15px}
 body.landing-clean{background:#0c0a14!important}.landing-clean .ambient,.landing-clean .amb-one,.landing-clean .amb-two{display:none!important}.landing-clean::before,.landing-clean::after{display:none!important}
 
-/* VERSIN — timeline limpa, progressiva, um bloco por rolagem */
-#etapas.how .section-heading{margin-bottom:8px}
-#etapas .timeline-track{--timeline-progress:0px;position:relative;display:flex!important;flex-direction:column!important;grid-template-columns:none!important;align-items:stretch!important;gap:0!important;width:min(100%,610px)!important;max-width:610px!important;margin:0 auto!important;padding:0 0 0 36px}
-#etapas .timeline-track::before{content:"";display:block!important;position:absolute;left:11px!important;right:auto!important;top:0!important;bottom:0!important;width:2px!important;height:auto!important;background:#352541!important;border-radius:6px;opacity:1!important;pointer-events:none}
-#etapas .timeline-progress{display:block!important;position:absolute;left:11px!important;top:0!important;width:2px!important;height:var(--timeline-progress,0px)!important;max-height:100%;background:linear-gradient(#b585fb,#9b5cfa)!important;box-shadow:0 0 12px #b585fb30;border-radius:6px;pointer-events:none;z-index:2}
-#etapas .timeline-item{width:100%!important;min-width:0;display:flex!important;align-items:center!important;justify-content:center!important;position:relative;height:84vh!important;min-height:450px!important;max-height:760px!important;padding:0!important;transition-delay:0s!important}
-#etapas .timeline-dot{display:none!important}
-#etapas .timeline-card{width:100%;min-height:0!important;padding:32px 34px!important;background:#171321;border:1px solid #6d518333;border-radius:17px;box-shadow:none!important;position:relative}
-#etapas .timeline-card::before{content:none!important;display:none!important}
-#etapas .timeline-item.is-visible .timeline-card{border-color:#9c6fe077}
+/* VERSIN — linha do tempo editorial, alternada, com nós ativados pelo scroll */
+#etapas.how .section-heading{margin-bottom:44px}
+#etapas .timeline-track{--timeline-progress:0px;position:relative;display:flex!important;flex-direction:column!important;grid-template-columns:none!important;gap:0!important;align-items:stretch!important;width:min(100%,920px)!important;max-width:920px!important;padding:0!important;margin:0 auto!important}
+#etapas .timeline-track::before{content:"";position:absolute;top:0!important;bottom:0!important;left:50%!important;right:auto!important;width:2px!important;height:auto!important;background:linear-gradient(180deg,#3c2c53,#32253f)!important;opacity:1!important;transform:translateX(-50%);border-radius:999px;pointer-events:none}
+#etapas .timeline-progress{position:absolute;display:block!important;top:0!important;left:50%!important;width:3px!important;height:var(--timeline-progress,0px)!important;max-height:100%;transform:translateX(-50%);background:linear-gradient(180deg,#b58afa,#9b61ef)!important;box-shadow:0 0 16px #b58afa55;z-index:1;border-radius:999px;pointer-events:none}
+#etapas .timeline-item{width:100%!important;position:relative;display:grid!important;grid-template-columns:1fr 1fr!important;align-items:center!important;justify-content:initial!important;min-height:390px!important;height:55vh!important;max-height:560px!important;margin:0!important;padding:0!important;transition-delay:0s!important}
 #etapas .timeline-item.reveal-on-scroll{opacity:1!important;transform:none!important}
-.timeline-js #etapas .timeline-card{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s cubic-bezier(.22,.65,.2,1),border-color .5s ease}
+#etapas .timeline-dot{display:block!important;position:absolute!important;top:50%!important;left:50%!important;width:17px!important;height:17px!important;margin:0!important;transform:translate(-50%,-50%)!important;border-radius:50%!important;background:#181223!important;border:3px solid #775c99!important;box-shadow:0 0 0 6px #b487fb10!important;z-index:3!important;transition:background .35s ease,border-color .35s ease,box-shadow .35s ease,scale .35s ease}
+#etapas .timeline-item.is-passed .timeline-dot,#etapas .timeline-item.is-visible .timeline-dot{background:#b993fa!important;border-color:#e0c9ff!important;box-shadow:0 0 0 7px #b28cf322,0 0 19px #b58afa66!important}
+#etapas .timeline-card{grid-column:1!important;width:calc(100% - 48px)!important;min-height:0!important;max-width:390px!important;margin:0 48px 0 auto!important;padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important;text-align:right;position:relative}
+#etapas .timeline-item:nth-of-type(even) .timeline-card{grid-column:2!important;text-align:left;margin:0 auto 0 48px!important}
+#etapas .timeline-card::before{content:none!important;display:none!important}
+#etapas .timeline-card::after{content:none!important;display:none!important}
+#etapas .timeline-card h3{font-size:clamp(22px,2.6vw,30px)!important;line-height:1.22;letter-spacing:-.045em;margin:0 0 14px;color:#f6efff;transition:color .4s ease}
+#etapas .timeline-item.is-visible .timeline-card h3{color:#c89aff}
+#etapas .timeline-card p{font-size:15px;line-height:1.8;margin:0;color:#ada2bd}
+#etapas .timeline-status{display:inline-block;margin-top:17px!important;border:0!important;padding:0!important;background:none!important;letter-spacing:.14em;font-size:10px;color:#b38adc!important}
+#etapas .timeline-item.reveal-on-scroll .timeline-card{opacity:1;transform:none}
+.timeline-js #etapas .timeline-item .timeline-card{opacity:.28;transform:translateY(24px);transition:opacity .6s ease,transform .7s cubic-bezier(.22,.65,.2,1)}
 .timeline-js #etapas .timeline-item.is-visible .timeline-card{opacity:1;transform:translateY(0)}
-#etapas .timeline-status{margin-top:6px}
-@media(max-width:700px){#etapas .timeline-track{width:100%!important;max-width:100%!important;padding-left:29px!important}#etapas .timeline-track::before,#etapas .timeline-progress{left:9px!important;top:0!important}#etapas .timeline-track::before{bottom:0!important}#etapas .timeline-progress{max-height:100%}#etapas .timeline-item{height:74vh!important;min-height:400px!important;max-height:650px!important}#etapas .timeline-card{padding:25px 23px!important}#etapas .timeline-card::before{content:none!important;display:none!important}}
-@media(prefers-reduced-motion:reduce){.timeline-js #etapas .timeline-card{opacity:1!important;transform:none!important;transition:none!important}}
+#etapas .timeline-item.is-passed:not(.is-visible) .timeline-card{opacity:.63}
+@media(max-width:700px){
+ #etapas.how .section-heading{margin-bottom:16px}
+ #etapas .timeline-track{width:100%!important;max-width:100%!important}
+ #etapas .timeline-track::before,#etapas .timeline-progress{left:18px!important}
+ #etapas .timeline-item{display:flex!important;align-items:center!important;min-height:290px!important;height:46vh!important;max-height:410px!important;padding-left:48px!important}
+ #etapas .timeline-dot{left:18px!important}
+ #etapas .timeline-card,#etapas .timeline-item:nth-of-type(even) .timeline-card{width:100%!important;max-width:none!important;margin:0!important;text-align:left!important}
+ #etapas .timeline-card h3{font-size:23px!important}
+ #etapas .timeline-card p{font-size:13px}
+}
+@media(prefers-reduced-motion:reduce){.timeline-js #etapas .timeline-item .timeline-card{opacity:1!important;transform:none!important;transition:none!important}}
 .future-note{margin-top:24px;border:1px solid rgba(212,196,255,.13);border-radius:16px;background:#15111f;padding:25px 27px;max-width:100%}.future-note-label{display:block;color:#bd98ff;font-size:10px;letter-spacing:.14em;font-weight:700;margin-bottom:12px}.future-note strong{display:block;font:700 20px 'Space Grotesk',sans-serif;color:#f9f6ff;margin-bottom:8px}.future-note p{font-size:13px;line-height:1.7;margin:0;max-width:720px}
 .privacy-consent-link{color:#d3a8ff;text-decoration:underline;text-underline-offset:3px;font-weight:700}.privacy-consent-link:hover{color:#f4e9ff}.privacy-consent-link:focus-visible{outline:2px solid #c69aff;outline-offset:3px;border-radius:2px}
+.enigma-description p{margin:0 0 13px}.enigma-description p:last-child{margin-bottom:0}.enigma-description strong{color:inherit;font-weight:700}.invitation-open{text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:10px}
 </style>
